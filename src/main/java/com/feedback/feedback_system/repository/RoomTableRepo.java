@@ -1,12 +1,12 @@
 package com.feedback.feedback_system.repository;
 
-import com.feedback.feedback_system.model.Admin;
+import com.feedback.feedback_system.model.RoomTable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface AdminRepo extends MongoRepository<Admin,String> {
-    Optional<Admin> findByUsername(String username);
+public interface RoomTableRepo extends MongoRepository<RoomTable,String> {
+    Optional<RoomTable> findByName(String roomTable);
 }

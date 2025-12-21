@@ -3,12 +3,16 @@ package com.feedback.feedback_system.controller;
 import com.feedback.feedback_system.dto.AdminRequestDto;
 import com.feedback.feedback_system.dto.LoginRequestDto;
 import com.feedback.feedback_system.jwt.JwtUtil;
+import com.feedback.feedback_system.model.Chef;
+import com.feedback.feedback_system.model.RoomTable;
+import com.feedback.feedback_system.model.Waiter;
 import com.feedback.feedback_system.service.AdminService;
 import com.feedback.feedback_system.utils.ResponseCodes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -43,6 +47,53 @@ public class AdminController {
         return ResponseEntity.ok(Map.of("accessToken", newAccessToken));
     }
 
+    //----------------staff Request--------------\\
+    //--- waiter ---
+    @GetMapping("/getAllWaiters")
+    public List<Waiter> getAllWaiters() {
+        return adminService.getAllWaiter();
+    }
 
+    @PostMapping("/addWaiter")
+    public ResponseEntity<?> addWaiter(@RequestParam String NewWaiterName) {
+        return adminService.addWaiter(NewWaiterName);
+    }
+
+    @DeleteMapping("/removeWaiter")
+    public ResponseEntity<?> removeWaiter(@RequestParam String NewWaiterName) {
+        return adminService.removeWaiter(NewWaiterName);
+    }
+
+    //--- chef ---
+
+    @GetMapping("/getAllChefs")
+    public List<Chef> getAllChefs() {
+        return adminService.getAllChef();
+    }
+
+    @PostMapping("/addChef")
+    public ResponseEntity<?> addChef(@RequestParam String NewChefName) {
+        return adminService.addChef(NewChefName);
+    }
+
+    @DeleteMapping("/removeChef")
+    public ResponseEntity<?> removeChef(@RequestParam String NewChefName) {
+        return adminService.removeChef(NewChefName);
+    }
+    //--- Room or table ---
+    @GetMapping("/getAllRoomTables")
+    public List<RoomTable> getAllRoomTables() {
+        return adminService.getAllRoomTable();
+    }
+
+    @PostMapping("/addRoomTable")
+    public ResponseEntity<?> addRoomTable(@RequestParam String NewRoomTableName) {
+        return adminService.addRoomTale(NewRoomTableName);
+    }
+
+    @DeleteMapping("/addRoomTable")
+    public ResponseEntity<?> removeRoomTable(@RequestParam String RoomTableName) {
+        return adminService.removeRoomTable(RoomTableName);
+    }
 
 }
