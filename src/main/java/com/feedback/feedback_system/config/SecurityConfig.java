@@ -22,8 +22,15 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth-> auth
-                        .requestMatchers("/api/v1/admin/login",
-                                "/api/v1/admin/create", "/api/v1/admin/refresh")
+                        .requestMatchers(
+                                "/api/v1/admin/login",
+                                "/api/v1/admin/refresh",
+                                "/api/v1/common/getAllWaiters",
+                                "/api/v1/common/getAllChefs" ,
+                                "/api/v1/common/getAllRoomTables",
+                                "/api/v1/common/addFeedBack"
+
+                        )
                         .permitAll().anyRequest().authenticated())
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

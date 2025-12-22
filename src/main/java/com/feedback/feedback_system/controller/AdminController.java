@@ -49,10 +49,6 @@ public class AdminController {
 
     //----------------staff Request--------------\\
     //--- waiter ---
-    @GetMapping("/getAllWaiters")
-    public List<Waiter> getAllWaiters() {
-        return adminService.getAllWaiter();
-    }
 
     @PostMapping("/addWaiter")
     public ResponseEntity<?> addWaiter(@RequestParam String NewWaiterName) {
@@ -66,10 +62,6 @@ public class AdminController {
 
     //--- chef ---
 
-    @GetMapping("/getAllChefs")
-    public List<Chef> getAllChefs() {
-        return adminService.getAllChef();
-    }
 
     @PostMapping("/addChef")
     public ResponseEntity<?> addChef(@RequestParam String NewChefName) {
@@ -81,10 +73,7 @@ public class AdminController {
         return adminService.removeChef(NewChefName);
     }
     //--- Room or table ---
-    @GetMapping("/getAllRoomTables")
-    public List<RoomTable> getAllRoomTables() {
-        return adminService.getAllRoomTable();
-    }
+
 
     @PostMapping("/addRoomTable")
     public ResponseEntity<?> addRoomTable(@RequestParam String NewRoomTableName) {
@@ -95,5 +84,6 @@ public class AdminController {
     public ResponseEntity<?> removeRoomTable(@RequestParam String RoomTableName) {
         return adminService.removeRoomTable(RoomTableName);
     }
+
 
 }

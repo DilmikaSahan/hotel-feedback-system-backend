@@ -95,7 +95,7 @@ public class AdminService {
     }
     //room and table management
     public ResponseEntity<?> addRoomTale(String roomTableName){
-        Optional<RoomTable> roomTable =  roomTableRepo.findByName(roomTableName);
+        Optional<RoomTable> roomTable =  roomTableRepo.findByRoomTable(roomTableName);
         if(roomTable.isPresent()){
             return ResponseEntity.ok(ResponseCodes.RSP_DUPLICATED);
         }
@@ -105,7 +105,7 @@ public class AdminService {
         return ResponseEntity.ok(ResponseCodes.RSP_SUCCESS);
     }
     public ResponseEntity<?> removeRoomTable(String roomTableName){
-        Optional<RoomTable> roomTable = roomTableRepo.findByName(roomTableName);
+        Optional<RoomTable> roomTable = roomTableRepo.findByRoomTable(roomTableName);
         if(!roomTable.isPresent()){
             return ResponseEntity.ok(ResponseCodes.RSP_NO_DATA_FOUND);
         }

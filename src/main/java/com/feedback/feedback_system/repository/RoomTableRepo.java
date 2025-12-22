@@ -8,5 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface RoomTableRepo extends MongoRepository<RoomTable,String> {
-    Optional<RoomTable> findByName(String roomTable);
+    Optional<RoomTable> findByRoomTable(String roomTable);
+
 }
