@@ -22,6 +22,8 @@ public class feedbackResponseDto {
     private Integer ambianceRate;
     private String ambianceFeedback;
 
+    private double avgRating;
+
     private LocalDateTime createdDate;
 
 }
