@@ -42,10 +42,5 @@ public class CommonController {
         return feedbackService.addFeedBack(feedBack);
     }
 
-    @GetMapping("/getAllFeedBacks")
-    public List<FeedBack> getAllFeedBacks() {
-        return feedbackService.getAllFeedBacks();
-    }
-
 
 }

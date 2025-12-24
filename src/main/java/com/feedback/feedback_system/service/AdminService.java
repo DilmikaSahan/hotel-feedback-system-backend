@@ -1,20 +1,16 @@
 package com.feedback.feedback_system.service;
 
 import com.feedback.feedback_system.dto.AdminRequestDto;
-import com.feedback.feedback_system.model.Admin;
-import com.feedback.feedback_system.model.Chef;
-import com.feedback.feedback_system.model.RoomTable;
-import com.feedback.feedback_system.model.Waiter;
-import com.feedback.feedback_system.repository.AdminRepo;
-import com.feedback.feedback_system.repository.ChefRepo;
-import com.feedback.feedback_system.repository.RoomTableRepo;
-import com.feedback.feedback_system.repository.WaiterRepo;
+import com.feedback.feedback_system.dto.FeedbackStatsDto;
+import com.feedback.feedback_system.model.*;
+import com.feedback.feedback_system.repository.*;
 import com.feedback.feedback_system.utils.ResponseCodes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.DoubleSummaryStatistics;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +22,9 @@ public class AdminService {
     private final ChefRepo chefRepo;
     private final RoomTableRepo roomTableRepo;
     private final PasswordEncoder passwordEncoder;
-//--------------admin management-------------------------------------
+    private final FeedbackRepo feedbackRepo;
+
+    //--------------admin management-------------------------------------
     public ResponseEntity<?> CreateAdmin(AdminRequestDto  adminRequestDto) {
         if(adminRepo.findByUsername(adminRequestDto.getUsername()).isPresent()){
             return ResponseEntity.ok(ResponseCodes.RSP_DUPLICATED);
@@ -114,5 +112,17 @@ public class AdminService {
     }
     public List<RoomTable> getAllRoomTable() {
         return roomTableRepo.findAll();
+    }
+
+    //get feedback status
+    public FeedbackStatsDto  getFeedbackStats(){
+        List<FeedBack> feedBacks = feedbackRepo.findAll();
+
+        int totalFeedbacks = feedBacks.size();
+        DoubleSummaryStatistics foodStats = feedBacks.stream().mapToDouble(fb->fb.getFoodRate() != null ? fb.getFoodRate():0).summaryStatistics();
+        DoubleSummaryStatistics serviceStats = feedBacks.stream().mapToDouble(fb->fb.getServiceRate() != null ? fb.getServiceRate():0).summaryStatistics();
+        DoubleSummaryStatistics ambianceStats = feedBacks.stream().mapToDouble(fb->fb.getAmbianceRate() != null ? fb.getAmbianceRate():0).summaryStatistics();
+
+        return new FeedbackStatsDto(totalFeedbacks,foodStats.getAverage(),serviceStats.getAverage(),ambianceStats.getAverage());
     }
 }
